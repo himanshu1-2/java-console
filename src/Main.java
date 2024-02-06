@@ -2,7 +2,6 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 import java.util.Scanner;
 class Calculator{
-
     public void showOperations(){
      System.out.println("Welcome to the calculator app");
      System.out.println("1.Addition");

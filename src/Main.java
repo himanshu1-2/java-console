@@ -11,7 +11,7 @@ class Calculator {
         System.out.println("Welcome to the calculator app");
         System.out.println("1.Addition");
         System.out.println("2.Subtraction");
-        System.out.println("3.Divison");
+        System.out.println("3.Division");
         System.out.println("4.Multiplication");
         System.out.println("5.Modulus");
         System.out.println("6.Percentage");
@@ -19,6 +19,9 @@ class Calculator {
         System.out.println("8.Exponential");
         System.out.println("9.Square root");
         System.out.println("10.logarithm");
+        System.out.println("11.Sine");
+        System.out.println("12.Cosine");
+        System.out.println("13.PI");
         System.out.println("15.Show History");
         System.out.println("16.exit");
     }
@@ -95,12 +98,43 @@ class Calculator {
                 result = performLog(base, value);
                 history.add("log of " + base + "to" + value + " = " + result);
                 break;
+            case 11:
+                System.out.println("Enter degree value");
+                int sinValue = scanner.nextInt();
+                result=performSine(sinValue);
+                history.add("sin" + sinValue +  " = " + result);
+                break;
+            case 12:
+                System.out.println("Enter degree value");
+                int cosineValue = scanner.nextInt();
+                result=performCosine(cosineValue);
+                history.add("cos" + cosineValue +  " = " + result);
+                break;
+            case 13:
+                System.out.println("Enter a number ");
+                long piNumber = scanner.nextInt();
+                result=performPi(piNumber);
+                history.add("pi" + piNumber +  " = " + result);
+                break;
             default:
                 System.out.println("Invalid option");
                 break;
 
         }
         return result;
+    }
+
+    private double performSine(int value) {
+        double radianValue = Math.toRadians(value);
+        return Math.round(Math.sin(radianValue));
+    }
+    private double performCosine(int value) {
+        double radianValue = Math.toRadians(value);
+        return Math.round(Math.cos(radianValue));
+    }
+
+    private double performPi(long number) {
+        return Math.PI * number;
     }
 
     private double performLog(int num1, int num2) {

@@ -1,11 +1,15 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 class Calculator {
-    ArrayList<String> history = new ArrayList<>();
+    List<String> history = new ArrayList<>();
+    Scanner scanner = new Scanner(System.in);
 
     public void showOperations() {
         System.out.println("Welcome to the calculator app");
@@ -18,7 +22,7 @@ class Calculator {
         System.out.println("7.Factorial");
         System.out.println("8.Exponential");
         System.out.println("9.Square root");
-        System.out.println("10.logarithm");
+        System.out.println("10.Logarithm");
         System.out.println("11.Sine");
         System.out.println("12.Cosine");
         System.out.println("13.PI");
@@ -27,100 +31,107 @@ class Calculator {
     }
 
     public int takeUserInput() {
-        Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
 
     //TODO create more general input
     //TODO restrict user to type anything or show error
-    public double perFormOperation(int input) throws ArithmeticException  {
-        Scanner scanner = new Scanner(System.in);
+    public double perFormOperation(int input) {
         double result = 0;
-        switch (input) {
-            case 1:
-                result = performAddition(scanner);
-                history.add("Addition" + " = " + result);
-                break;
-            case 2:
-                result = performSubtraction(scanner);
-                history.add("Subtraction" + " = " + result);
-                break;
-            case 3:
-                System.out.println("Enter two numbers ");
-                double num1 = scanner.nextDouble();
-                double num2 = scanner.nextDouble();
-                result = performDivision(num1, num2);
-                history.add("Division" + num1 + " / " + num2 + " = " + result);
-                break;
-            case 4:
-                result = performMultiplication(scanner);
-                history.add("Multiplication" + " = " + result);
-                break;
+        try {
+            switch (input) {
+                case 1:
+                    result = performAddition(scanner);
+                    history.add("Addition" + " = " + result);
+                    break;
+                case 2:
+                    result = performSubtraction(scanner);
+                    history.add("Subtraction" + " = " + result);
+                    break;
+                case 3:
+                    System.out.println("Enter two numbers ");
+                    double num1 = scanner.nextDouble();
+                    double num2 = scanner.nextDouble();
+                    result = performDivision(num1, num2);
+                    history.add("Division" + num1 + " / " + num2 + " = " + result);
+                    break;
+                case 4:
+                    result = performMultiplication(scanner);
+                    history.add("Multiplication" + " = " + result);
+                    break;
 
-            case 5:
-                System.out.println("Enter two numbers ");
-                double modNum1 = scanner.nextDouble();
-                double modNum2 = scanner.nextDouble();
-                result = performModulus(modNum1, modNum2);
-                history.add("Modulus " + modNum1 + " % " + modNum2 + " = " + result);
-                break;
-            case 6:
-                System.out.println("Enter two numbers ");
-                double perNum1 = scanner.nextDouble();
-                double perNum2 = scanner.nextDouble();
-                result = performPercentage(perNum1, perNum2);
-                history.add("Percentage" + perNum1 + " % " + perNum2 + " = " + result);
-                break;
+                case 5:
+                    System.out.println("Enter two numbers ");
+                    double modNum1 = scanner.nextDouble();
+                    double modNum2 = scanner.nextDouble();
+                    result = performModulus(modNum1, modNum2);
+                    history.add("Modulus " + modNum1 + " % " + modNum2 + " = " + result);
+                    break;
+                case 6:
+                    System.out.println("Enter two numbers ");
+                    double perNum1 = scanner.nextDouble();
+                    double perNum2 = scanner.nextDouble();
+                    result = performPercentage(perNum1, perNum2);
+                    history.add("Percentage" + perNum1 + " % " + perNum2 + " = " + result);
+                    break;
 
-            case 7:
-                System.out.println("Enter a number");
-                int fact = scanner.nextInt();
-                result = performFactorial(fact);
-                history.add("Factorial of " + fact + " ! " + " = " + result);
-                break;
-            case 8:
-                System.out.println("Enter base and power");
-                int baseNumber = scanner.nextInt();
-                int power = scanner.nextInt();
-                result = performExponential(baseNumber, power);
-                history.add("Exponential" + baseNumber + "a^b " + power + " = " + result);
-                break;
-            case 9:
-                System.out.println("Enter a number");
-                int number = scanner.nextInt();
-                result = performRoot(number);
-                history.add("Square root " + number + " = " + result);
-                break;
-            case 10:
-                System.out.println("Enter base and value");
-                int base = scanner.nextInt();
-                int value = scanner.nextInt();
-                result = performLog(base, value);
-                history.add("log of " + base + "to" + value + " = " + result);
-                break;
-            case 11:
-                System.out.println("Enter degree value");
-                int sinValue = scanner.nextInt();
-                result=performSine(sinValue);
-                history.add("sin" + sinValue +  " = " + result);
-                break;
-            case 12:
-                System.out.println("Enter degree value");
-                int cosineValue = scanner.nextInt();
-                result=performCosine(cosineValue);
-                history.add("cos" + cosineValue +  " = " + result);
-                break;
-            case 13:
-                System.out.println("Enter a number ");
-                long piNumber = scanner.nextInt();
-                result=performPi(piNumber);
-                history.add("pi" + piNumber +  " = " + result);
-                break;
-            default:
-                System.out.println("Invalid option");
-                break;
-
+                case 7:
+                    System.out.println("Enter a number");
+                    int fact = scanner.nextInt();
+                    result = performFactorial(fact);
+                    history.add("Factorial of " + fact + " ! " + " = " + result);
+                    break;
+                case 8:
+                    System.out.println("Enter base and power");
+                    int baseNumber = scanner.nextInt();
+                    int power = scanner.nextInt();
+                    result = performExponential(baseNumber, power);
+                    history.add("Exponential" + baseNumber + "a^b " + power + " = " + result);
+                    break;
+                case 9:
+                    System.out.println("Enter a number");
+                    int number = scanner.nextInt();
+                    result = performRoot(number);
+                    history.add("Square root " + number + " = " + result);
+                    break;
+                case 10:
+                    System.out.println("Enter base and value");
+                    int base = scanner.nextInt();
+                    int value = scanner.nextInt();
+                    result = performLog(base, value);
+                    history.add("log of " + base + "to" + value + " = " + result);
+                    break;
+                case 11:
+                    System.out.println("Enter degree value");
+                    int sinValue = scanner.nextInt();
+                    result = performSine(sinValue);
+                    history.add("sin" + sinValue + " = " + result);
+                    break;
+                case 12:
+                    System.out.println("Enter degree value");
+                    int cosineValue = scanner.nextInt();
+                    result = performCosine(cosineValue);
+                    history.add("cos" + cosineValue + " = " + result);
+                    break;
+                case 13:
+                    System.out.println("Enter a number ");
+                    long piNumber = scanner.nextInt();
+                    result = performPi(piNumber);
+                    history.add("pi" + piNumber + " = " + result);
+                    break;
+                case 15:
+                    showHistory();
+                    break;
+                case 16:
+                    System.exit(200);
+                default:
+                    System.out.println("Invalid option");
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+
         return result;
     }
 
@@ -128,6 +139,7 @@ class Calculator {
         double radianValue = Math.toRadians(value);
         return Math.round(Math.sin(radianValue));
     }
+
     private double performCosine(int value) {
         double radianValue = Math.toRadians(value);
         return Math.round(Math.cos(radianValue));
@@ -147,7 +159,7 @@ class Calculator {
     }
 
     private double performFactorial(int fact) {
-        int result = 1;
+        double result = 1;
         if (fact == 0)
             return 1;
         for (int i = 1; i <= fact; i++) {
@@ -177,19 +189,37 @@ class Calculator {
     private double performSubtraction(Scanner scanner) {
         System.out.println("Enter numbers to subtract (separated by space), type 'any' to finish:");
         double result = 0;
-        while (scanner.hasNextDouble()) {
-            double num = scanner.nextDouble();
-            result -= num;
+        while (scanner.hasNext()) {
+            if (scanner.hasNextDouble()) {
+                double num = scanner.nextDouble();
+                result -= num;
+            } else {
+                String token = scanner.next();
+                if (token.equals("any")) {
+                    break;
+                } else {
+                    System.out.println("Invalid input. Please enter a number or 'any' to finish.");
+                }
+            }
         }
         return result;
     }
 
-    private double performAddition(Scanner scanner) {
+    private double performAddition(Scanner scanner) throws InputMismatchException {
         System.out.println("Enter numbers to add (separated by space), type 'any' to finish:");
         double result = 0;
-        while (scanner.hasNextDouble()) {
-            double num = scanner.nextDouble();
-            result += num;
+        while (scanner.hasNext()) {
+            if (scanner.hasNextDouble()) {
+                double num = scanner.nextDouble();
+                result += num;
+            } else {
+                String token = scanner.next();
+                if (token.equals("any")) {
+                    break;
+                } else {
+                    System.out.println("Invalid input. Please enter a number or 'any' to finish.");
+                }
+            }
         }
         return result;
     }
@@ -222,26 +252,13 @@ class Calculator {
 
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
         Calculator calculator = new Calculator();
         while (true) {
             calculator.showOperations();
             int input = calculator.takeUserInput();
-            if (input == 15) {
-                calculator.showHistory();
-            } else if (input == 16) {
-                System.out.println("exited");
-                break;
-            } else {
-                try {
-                    double result = calculator.perFormOperation(input);
-                    System.out.println("result" + result);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
+            double result = calculator.perFormOperation(input);
+            System.out.println("result" + result);
 
-            }
         }
 
     }
